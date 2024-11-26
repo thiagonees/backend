@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json());
 
-const port = 3000;
+
 
 
 const User = mongoose.model('User', { 
@@ -14,11 +14,14 @@ const User = mongoose.model('User', {
     password: String
 });
 
-
-app.get("/", (req, res) => {
-    res.send("Welcome to the Express server!");
+//Listagem de usuario
+app.get("/", async (req, res) => {
+    const user = await User.find()
+    return res.send(user);
 });
 
+
+//Criacao de usuario
 app.post("/", async (req, res) => {
     const user = new User({
         name: req.body.name,
@@ -28,10 +31,16 @@ app.post("/", async (req, res) => {
     })
 
     await user.save();
-    res.send(user);
+    return res.send(user)
 });
 
-app.listen(port, () => {
+//Deleta o usuario
+app.delete("/:id", async(req, res) => {
+    const user = await User.findByIdAndDelete(req.params.id);
+    return res.send(user);
+})
+
+app.listen(3000, () => {
     mongoose.connect('mongodb+srv://thiagoalvesdevp:nY7YOIxN08KoHaXE@backend.ob6ly.mongodb.net/?retryWrites=true&w=majority&appName=Backend');
-    console.log(`Server is running on port ${port} 🚀`);
+    console.log(`Server is running!  🚀`);
 })
