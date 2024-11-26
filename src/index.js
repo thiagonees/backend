@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 
 const app = express();
 app.use(express.json());
@@ -15,7 +19,7 @@ const User = mongoose.model('User', {
 });
 
 // Chave secreta para JWT
-const JWT_SECRET = "seu_segredo_super_seguro";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Criação de usuário
 app.post("/register", async (req, res) => {
