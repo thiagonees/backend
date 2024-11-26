@@ -25,6 +25,7 @@ exports.register = async (req, res) => {
     res.status(201).send({ message: "User registered successfully!" });
 };
 
+
 // Login do usuário
 exports.login = async (req, res) => {
     const { name, whatsapp, password } = req.body;
@@ -43,6 +44,17 @@ exports.login = async (req, res) => {
         return res.status(401).send({ error: "Invalid password!" });
     }
 
+    // Gerar o token JWT
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-    res.status(200).send({ message: "Login successful!", token });
+
+    // Responder com token e os dados do usuário
+    res.status(200).send({
+        message: "Login successful!",
+        token,
+        user: {  
+            name: user.name,
+            whatsapp: user.whatsapp,
+            cpf: user.cpf,
+        }
+    });
 };
