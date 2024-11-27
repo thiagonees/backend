@@ -7,14 +7,15 @@ dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 
 // Configurar o CORS para permitir requisições do frontend
 const corsOptions = {
-  origin: 'http://localhost:3001', // Permite requisições do frontend na porta 3001
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define os métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+  origin: 'http://localhost:3001', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
 app.use(cors(corsOptions));  // Use o middleware CORS
@@ -29,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/auth", messageRoutes);
 
 // Inicialização do servidor
 app.listen(3000, () => {

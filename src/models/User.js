@@ -5,7 +5,11 @@ const userSchema = new mongoose.Schema({
     whatsapp: String,
     cpf: String,
     password: String,
-});
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
