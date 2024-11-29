@@ -5,9 +5,9 @@ const cors = require('cors');  // Importe o pacote cors
 
 dotenv.config();
 
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
-const messageRoutes = require('./routes/messageRoutes');
+const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const messageRoutes = require('./src/routes/messageRoutes');
 
 const app = express();
 
