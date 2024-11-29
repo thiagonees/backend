@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors');  // Importe o pacote cors
+const cors = require('cors');
 
 dotenv.config();
 
@@ -13,13 +13,12 @@ const app = express();
 
 // Configurar o CORS para permitir requisições do frontend
 const corsOptions = {
-  origin: 'https://crescer-mong-api.vercel.app/api/add"', 
+  origin: 'https://crescer-mong-api.vercel.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
-app.use(cors(corsOptions));  // Use o middleware CORS
-
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Conexão ao banco de dados
@@ -30,9 +29,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/auth", messageRoutes);
+app.use("/api/message", messageRoutes);
 
-// Inicialização do servidor
-app.listen(3000, () => {
-    console.log(`Server is running on port 3000! 🚀`);
-});
+// Exporta o app para a Vercel
+module.exports = app;
