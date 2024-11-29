@@ -13,8 +13,8 @@ const app = express();
 
 // Configurar o CORS para permitir requisições do frontend
 const corsOptions = {
-  origin: ['http://localhost:3001', 'https://crescer-mong-api.vercel.app'], 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  origin: ['http://localhost:3001', 'https://crescer-front.vercel.app', 'https://crescer-mong-api.vercel.app'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  
   allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/message", messageRoutes);
+
 
 // Exporta o app para a Vercel
 module.exports = app;
