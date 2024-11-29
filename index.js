@@ -1,9 +1,12 @@
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors');
+const cors = require('cors');  // Importe o pacote cors
 
 dotenv.config();
+
 
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
@@ -18,7 +21,8 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));  // Use o middleware CORS
+
 app.use(express.json());
 
 // Conexão ao banco de dados
@@ -29,8 +33,10 @@ mongoose.connect(process.env.MONGO_URI)
 // Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/auth", messageRoutes);
 
+// Inicialização do servidor
+app.listen(3000, () => {
+    console.log(`Server is running on port 3000! 🚀`);
+});
 
-// Exporta o app para a Vercel
-module.exports = app;
